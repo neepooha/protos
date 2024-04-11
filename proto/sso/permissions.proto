@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package perm;
+
+option go_package = "neepooha.sso.v1;ssov1";
+
+service Permissions {
+    rpc SetAdmin (SetAdminRequest) returns (SetAdminResponse);
+    rpc DelAdmin (DelAdminRequest) returns (DelAdminResponse);
+}
+
+message SetAdminRequest {
+    string email = 1;
+}
+
+message SetAdminResponse {
+    bool set_admin = 1;
+}
+
+message DelAdminRequest {
+    string email = 1;
+}
+
+message DelAdminResponse {
+    string del_admin = 1;
+}
