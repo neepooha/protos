@@ -36,7 +36,7 @@ message IsAdminResponse {
 }
 
 message IsCreatorRequest {
-    uint64 user_id = 1;
+    string token = 1;
 }
 
 message IsCreatorResponse {
