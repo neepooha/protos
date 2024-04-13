@@ -2,11 +2,13 @@ syntax = "proto3";
 
 package perm;
 
-option go_package = "neepooha.sso.v1;ssov1";
+option go_package = "neepooha.sso.v2;ssov2";
 
 service Permissions {
     rpc SetAdmin (SetAdminRequest) returns (SetAdminResponse);
     rpc DelAdmin (DelAdminRequest) returns (DelAdminResponse);
+    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+    rpc IsCreator (IsCreatorRequest) returns (IsCreatorResponse);
 }
 
 message SetAdminRequest {
@@ -23,4 +25,20 @@ message DelAdminRequest {
 
 message DelAdminResponse {
     bool del_admin = 1;
+}
+
+message IsAdminRequest {
+    uint64 user_id = 1;
+}
+
+message IsAdminResponse {
+    bool is_admin = 1;
+}
+
+message IsCreatorRequest {
+    uint64 user_id = 1;
+}
+
+message IsCreatorResponse {
+    bool is_admin = 1;
 }
