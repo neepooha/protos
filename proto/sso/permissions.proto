@@ -40,5 +40,5 @@ message IsCreatorRequest {
 }
 
 message IsCreatorResponse {
-    bool is_admin = 1;
+    bool is_creator = 1;
 }
