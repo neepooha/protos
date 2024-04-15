@@ -5,9 +5,19 @@ package apps;
 option go_package = "neepooha.sso.v2;ssov2";
 
 service Apps {
+    rpc GetApp (GetAppRequest) returns (GetAppResponse);
     rpc SetApp (SetAppRequest) returns (SetAppResponse);
     rpc UpdApp (UpdAppRequest) returns (UpdAppResponse);
     rpc DelApp (DelAppRequest) returns (DelAppResponse);
+}
+
+message GetAppRequest {
+    string app_name = 1;
+}
+
+message GetAppResponse {
+    int32 app_id = 1;
+    string app_name = 2;
 }
 
 message SetAppRequest {
@@ -20,8 +30,9 @@ message SetAppResponse {
 }
 
 message UpdAppRequest {
-    string app_name = 1;
-    string app_secret = 2;
+    int32 appID = 1;
+    string new_app_name = 2;
+    string new_app_secret = 3;
 }
 
 message UpdAppResponse {

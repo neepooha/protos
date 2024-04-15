@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	Apps_GetApp_FullMethodName = "/apps.Apps/GetApp"
 	Apps_SetApp_FullMethodName = "/apps.Apps/SetApp"
 	Apps_UpdApp_FullMethodName = "/apps.Apps/UpdApp"
 	Apps_DelApp_FullMethodName = "/apps.Apps/DelApp"
@@ -28,6 +29,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppsClient interface {
+	GetApp(ctx context.Context, in *GetAppRequest, opts ...grpc.CallOption) (*GetAppResponse, error)
 	SetApp(ctx context.Context, in *SetAppRequest, opts ...grpc.CallOption) (*SetAppResponse, error)
 	UpdApp(ctx context.Context, in *UpdAppRequest, opts ...grpc.CallOption) (*UpdAppResponse, error)
 	DelApp(ctx context.Context, in *DelAppRequest, opts ...grpc.CallOption) (*DelAppResponse, error)
@@ -39,6 +41,15 @@ type appsClient struct {
 
 func NewAppsClient(cc grpc.ClientConnInterface) AppsClient {
 	return &appsClient{cc}
+}
+
+func (c *appsClient) GetApp(ctx context.Context, in *GetAppRequest, opts ...grpc.CallOption) (*GetAppResponse, error) {
+	out := new(GetAppResponse)
+	err := c.cc.Invoke(ctx, Apps_GetApp_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *appsClient) SetApp(ctx context.Context, in *SetAppRequest, opts ...grpc.CallOption) (*SetAppResponse, error) {
@@ -72,6 +83,7 @@ func (c *appsClient) DelApp(ctx context.Context, in *DelAppRequest, opts ...grpc
 // All implementations must embed UnimplementedAppsServer
 // for forward compatibility
 type AppsServer interface {
+	GetApp(context.Context, *GetAppRequest) (*GetAppResponse, error)
 	SetApp(context.Context, *SetAppRequest) (*SetAppResponse, error)
 	UpdApp(context.Context, *UpdAppRequest) (*UpdAppResponse, error)
 	DelApp(context.Context, *DelAppRequest) (*DelAppResponse, error)
@@ -82,6 +94,9 @@ type AppsServer interface {
 type UnimplementedAppsServer struct {
 }
 
+func (UnimplementedAppsServer) GetApp(context.Context, *GetAppRequest) (*GetAppResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetApp not implemented")
+}
 func (UnimplementedAppsServer) SetApp(context.Context, *SetAppRequest) (*SetAppResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetApp not implemented")
 }
@@ -102,6 +117,24 @@ type UnsafeAppsServer interface {
 
 func RegisterAppsServer(s grpc.ServiceRegistrar, srv AppsServer) {
 	s.RegisterService(&Apps_ServiceDesc, srv)
+}
+
+func _Apps_GetApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAppRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AppsServer).GetApp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Apps_GetApp_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AppsServer).GetApp(ctx, req.(*GetAppRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Apps_SetApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -165,6 +198,10 @@ var Apps_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "apps.Apps",
 	HandlerType: (*AppsServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetApp",
+			Handler:    _Apps_GetApp_Handler,
+		},
 		{
 			MethodName: "SetApp",
 			Handler:    _Apps_SetApp_Handler,
