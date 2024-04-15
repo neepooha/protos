@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package apps;
+
+option go_package = "neepooha.sso.v2;ssov2";
+
+service Permissions {
+    rpc SetApp (SetAppRequest) returns (SetAppResponse);
+    rpc UpdApp (UpdAppRequest) returns (UpdAppResponse);
+    rpc DelApp (DelAppRequest) returns (DelAppResponse);
+}
+
+message SetAppRequest {
+    int32 app_id = 1;
+    string app_secret = 2;
+}
+
+message SetAppResponse {
+    bool is_set_app = 1;
+}
+
+message UpdAppRequest {
+    int32 app_id = 1;
+    string app_secret = 2;
+}
+
+message UpdAppResponse {
+    bool is_upd_app = 1;
+}
+
+message DelAppRequest {
+    int32 app_id = 1;
+}
+
+message DelAppResponse {
+    bool is_del_app = 1;
+}
