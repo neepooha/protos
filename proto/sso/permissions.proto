@@ -30,7 +30,7 @@ message DelAdminResponse {
 }
 
 message IsAdminRequest {
-    string email = 1;
+    uint64 user_id = 1;
     string app_name = 2;
 }
 
@@ -39,7 +39,7 @@ message IsAdminResponse {
 }
 
 message IsCreatorRequest {
-    string token = 1;
+    uint64 user_id = 1;
     string app_name = 2;
 }
 
