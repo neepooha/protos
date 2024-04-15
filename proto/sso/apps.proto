@@ -26,7 +26,7 @@ message SetAppRequest {
 }
 
 message SetAppResponse {
-    bool is_set_app = 1;
+    int32 appID = 1;
 }
 
 message UpdAppRequest {
