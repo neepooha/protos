@@ -4,7 +4,7 @@ package apps;
 
 option go_package = "neepooha.sso.v2;ssov2";
 
-service Permissions {
+service Apps {
     rpc SetApp (SetAppRequest) returns (SetAppResponse);
     rpc UpdApp (UpdAppRequest) returns (UpdAppResponse);
     rpc DelApp (DelAppRequest) returns (DelAppResponse);

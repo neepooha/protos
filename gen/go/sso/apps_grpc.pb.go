@@ -19,163 +19,163 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Permissions_SetApp_FullMethodName = "/apps.Permissions/SetApp"
-	Permissions_UpdApp_FullMethodName = "/apps.Permissions/UpdApp"
-	Permissions_DelApp_FullMethodName = "/apps.Permissions/DelApp"
+	Apps_SetApp_FullMethodName = "/apps.Apps/SetApp"
+	Apps_UpdApp_FullMethodName = "/apps.Apps/UpdApp"
+	Apps_DelApp_FullMethodName = "/apps.Apps/DelApp"
 )
 
-// PermissionsClient is the client API for Permissions service.
+// AppsClient is the client API for Apps service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PermissionsClient interface {
+type AppsClient interface {
 	SetApp(ctx context.Context, in *SetAppRequest, opts ...grpc.CallOption) (*SetAppResponse, error)
 	UpdApp(ctx context.Context, in *UpdAppRequest, opts ...grpc.CallOption) (*UpdAppResponse, error)
 	DelApp(ctx context.Context, in *DelAppRequest, opts ...grpc.CallOption) (*DelAppResponse, error)
 }
 
-type permissionsClient struct {
+type appsClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPermissionsClient(cc grpc.ClientConnInterface) PermissionsClient {
-	return &permissionsClient{cc}
+func NewAppsClient(cc grpc.ClientConnInterface) AppsClient {
+	return &appsClient{cc}
 }
 
-func (c *permissionsClient) SetApp(ctx context.Context, in *SetAppRequest, opts ...grpc.CallOption) (*SetAppResponse, error) {
+func (c *appsClient) SetApp(ctx context.Context, in *SetAppRequest, opts ...grpc.CallOption) (*SetAppResponse, error) {
 	out := new(SetAppResponse)
-	err := c.cc.Invoke(ctx, Permissions_SetApp_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Apps_SetApp_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionsClient) UpdApp(ctx context.Context, in *UpdAppRequest, opts ...grpc.CallOption) (*UpdAppResponse, error) {
+func (c *appsClient) UpdApp(ctx context.Context, in *UpdAppRequest, opts ...grpc.CallOption) (*UpdAppResponse, error) {
 	out := new(UpdAppResponse)
-	err := c.cc.Invoke(ctx, Permissions_UpdApp_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Apps_UpdApp_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionsClient) DelApp(ctx context.Context, in *DelAppRequest, opts ...grpc.CallOption) (*DelAppResponse, error) {
+func (c *appsClient) DelApp(ctx context.Context, in *DelAppRequest, opts ...grpc.CallOption) (*DelAppResponse, error) {
 	out := new(DelAppResponse)
-	err := c.cc.Invoke(ctx, Permissions_DelApp_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Apps_DelApp_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// PermissionsServer is the server API for Permissions service.
-// All implementations must embed UnimplementedPermissionsServer
+// AppsServer is the server API for Apps service.
+// All implementations must embed UnimplementedAppsServer
 // for forward compatibility
-type PermissionsServer interface {
+type AppsServer interface {
 	SetApp(context.Context, *SetAppRequest) (*SetAppResponse, error)
 	UpdApp(context.Context, *UpdAppRequest) (*UpdAppResponse, error)
 	DelApp(context.Context, *DelAppRequest) (*DelAppResponse, error)
-	mustEmbedUnimplementedPermissionsServer()
+	mustEmbedUnimplementedAppsServer()
 }
 
-// UnimplementedPermissionsServer must be embedded to have forward compatible implementations.
-type UnimplementedPermissionsServer struct {
+// UnimplementedAppsServer must be embedded to have forward compatible implementations.
+type UnimplementedAppsServer struct {
 }
 
-func (UnimplementedPermissionsServer) SetApp(context.Context, *SetAppRequest) (*SetAppResponse, error) {
+func (UnimplementedAppsServer) SetApp(context.Context, *SetAppRequest) (*SetAppResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetApp not implemented")
 }
-func (UnimplementedPermissionsServer) UpdApp(context.Context, *UpdAppRequest) (*UpdAppResponse, error) {
+func (UnimplementedAppsServer) UpdApp(context.Context, *UpdAppRequest) (*UpdAppResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdApp not implemented")
 }
-func (UnimplementedPermissionsServer) DelApp(context.Context, *DelAppRequest) (*DelAppResponse, error) {
+func (UnimplementedAppsServer) DelApp(context.Context, *DelAppRequest) (*DelAppResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelApp not implemented")
 }
-func (UnimplementedPermissionsServer) mustEmbedUnimplementedPermissionsServer() {}
+func (UnimplementedAppsServer) mustEmbedUnimplementedAppsServer() {}
 
-// UnsafePermissionsServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PermissionsServer will
+// UnsafeAppsServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AppsServer will
 // result in compilation errors.
-type UnsafePermissionsServer interface {
-	mustEmbedUnimplementedPermissionsServer()
+type UnsafeAppsServer interface {
+	mustEmbedUnimplementedAppsServer()
 }
 
-func RegisterPermissionsServer(s grpc.ServiceRegistrar, srv PermissionsServer) {
-	s.RegisterService(&Permissions_ServiceDesc, srv)
+func RegisterAppsServer(s grpc.ServiceRegistrar, srv AppsServer) {
+	s.RegisterService(&Apps_ServiceDesc, srv)
 }
 
-func _Permissions_SetApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Apps_SetApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetAppRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionsServer).SetApp(ctx, in)
+		return srv.(AppsServer).SetApp(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permissions_SetApp_FullMethodName,
+		FullMethod: Apps_SetApp_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionsServer).SetApp(ctx, req.(*SetAppRequest))
+		return srv.(AppsServer).SetApp(ctx, req.(*SetAppRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permissions_UpdApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Apps_UpdApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdAppRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionsServer).UpdApp(ctx, in)
+		return srv.(AppsServer).UpdApp(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permissions_UpdApp_FullMethodName,
+		FullMethod: Apps_UpdApp_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionsServer).UpdApp(ctx, req.(*UpdAppRequest))
+		return srv.(AppsServer).UpdApp(ctx, req.(*UpdAppRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permissions_DelApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Apps_DelApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DelAppRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionsServer).DelApp(ctx, in)
+		return srv.(AppsServer).DelApp(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permissions_DelApp_FullMethodName,
+		FullMethod: Apps_DelApp_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionsServer).DelApp(ctx, req.(*DelAppRequest))
+		return srv.(AppsServer).DelApp(ctx, req.(*DelAppRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Permissions_ServiceDesc is the grpc.ServiceDesc for Permissions service.
+// Apps_ServiceDesc is the grpc.ServiceDesc for Apps service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Permissions_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "apps.Permissions",
-	HandlerType: (*PermissionsServer)(nil),
+var Apps_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "apps.Apps",
+	HandlerType: (*AppsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SetApp",
-			Handler:    _Permissions_SetApp_Handler,
+			Handler:    _Apps_SetApp_Handler,
 		},
 		{
 			MethodName: "UpdApp",
-			Handler:    _Permissions_UpdApp_Handler,
+			Handler:    _Apps_UpdApp_Handler,
 		},
 		{
 			MethodName: "DelApp",
-			Handler:    _Permissions_DelApp_Handler,
+			Handler:    _Apps_DelApp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
