@@ -30,7 +30,7 @@ message DelAdminResponse {
 }
 
 message IsAdminRequest {
-    uint64 user_id = 1;
+    string email = 1;
     string app_name = 2;
 }
 
