@@ -5,7 +5,7 @@ package apps;
 option go_package = "neepooha.sso.v2;ssov2";
 
 service Apps {
-    rpc GetApp (GetAppRequest) returns (GetAppResponse);
+    rpc GetAppID (GetAppRequest) returns (GetAppResponse);
     rpc SetApp (SetAppRequest) returns (SetAppResponse);
     rpc UpdApp (UpdAppRequest) returns (UpdAppResponse);
     rpc DelApp (DelAppRequest) returns (DelAppResponse);
